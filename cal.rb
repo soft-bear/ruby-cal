@@ -15,7 +15,7 @@ def calc(year,month,date)
     month += 12
   end
   h = year + (year / 4).floor - (year / 100).floor + (year / 400).floor + ((13*month + 8)/5).floor + date
-  case h%7
+  case h % 7
   when 0
     s = "Sunday"
   when 1
@@ -60,8 +60,17 @@ def date(year,month)
   while i <= maxday
     s = calc(year,month,i)
     for n in day
-      if n.date == i then
-        s = "Public"
+      if n.kata == "date" then
+        if n.date == i then
+          if s != "Sunday" then
+            s = "Public"
+          end
+        end
+      else
+        if n.week == i / 8 + 1 then
+          if s != "Sunday" then
+            s = "Public"
+          end
       end
     end
     ary.push(s)
@@ -80,10 +89,8 @@ end
 get '/:year/:month' do
   @year = params[:year].to_i
   @month = params[:month].to_i
-  a = Public.all
-  puts a[0].name
   if(@year < 0 || @month > 12 || @month < 1)
-    @message = "Maybe Prameter is bad"
+    @message = "Maybe parameter is bad"
   end
   @h = date(@year,@month)
   erb :calendar
