@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Test</title>
+</head>
+<body>
+<h1><%= @year %> / <%= @month %></h1>
+<%= @message %>
+<% require 'date'%>
+<% today = Date.today %>
+<% link = "/" + today.year.to_s + "/" + today.mon.to_s %>
+<a href="/" + <%= link %>>This month</a>
+<table border>
+<tr>
+  <th>Day</th>
+  <th>Day of the week</th>
+  <th>Todo</th>
+</tr>
+<% @h.each_with_index do |a , i| %>
+<td><%= i + 1 %></td>
+<% if today.year == @year and today.mon == @month and today.mday == i %>
+<td><font color="aquamarine"><%= a %></font></td>
+<% elsif a == "Saturday" %>
+<td><font color="blue"><%= a %></font></td>
+<% elsif a == "Sunday" %>
+<td><font color="red"><%= a %></font></td>
+<% else %>
+<td><%= a %></font></td>
+<% end %>
+<td><input type="text" name="Todo"></td>
+</tr>
+<% end %>
+
+</table>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/style.css"/>   
+<meta charset="utf-8" />
+<title>Test</title>
+</head>
+<body>
+<h1><%= @year %> / <%= @month %></h1>
+<% if @year == 1868 %>
+  <h1>明治元年</h1>
+<% elsif @year <= 1912 then %>
+  <% if @year == 1912 and @month >= 7 then %>
+  <h1>大正元年</h1>
+  <% else %>
+  <h1>明治<%= @year - 1867 %>年</h1>
+  <% end %>
+<% elsif @year <= 1927 then %>
+  <% if @year == 1927 and @month >= 12 then %>
+  <h1>昭和元年</h1>
+  <% else %>
+  <h1>大正<%= @year - 1911 %>年</h1>
+  <% end %>
+<% elsif @year <=1989 then %>
+  <% if @year == 1989 then%>
+  <h1>平成元年</h1>
+  <% else %>
+  <h1>昭和<%= @year - 1925 %></h1>
+  <% end %>
+<% elsif @year <= 2019 then %>
+  <% if @year == 2019 and @month >= 6 then %>
+  <h1>令和元年</h1>
+  <% else %>
+  <h1>平成<%= @year - 1988 %>年</h1>
+  <% end %>  
+<% else %>
+<h1>令和<%= @year - 2018 %>年</h1>
+<% end %>
+<%= @message %>
+<% require 'date'%>
+<% today = Date.today %>
+<% link = "/" + today.year.to_s + "/" + today.mon.to_s %>
+<a href=<%= link %>>Current month</a>
+<% nyear = @year + (@month + 1) / 13 %>
+<% nmon = if(@month + 1 == 13)then 1 else @month + 1 end%>
+<% nlink = "/" + nyear.to_s + "/" + nmon.to_s %>
+<a href=<%= nlink %>>Next month</a>
+<% lmon = if (@month - 1 == 0)then 12 else @month - 1 end %>
+<% lyear = if(lmon == 12)then @year - 1 else @year end %>
+<% llink = "/" +lyear.to_s + "/" + lmon.to_s %>
+<a href=<%= llink %>>Last month</a>
+<table border>
+<tr>
+  <th>Sun</th>
+  <th>Mon</th>
+  <th>Tue</th>
+  <th>Wed</th>
+  <th>Thu</th>
+  <th>Fri</th>
+  <th>Sat</th>
+</tr>
+<tr>
+  <% array = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"] %>
+  <% array.each_with_index do |a, i| %>
+  <% if (@h[0] == "Public" or @h[0] == "Transfer" or @h[0] == "Transfer") then %>
+  <% if (@h[1] == array[(i + 1) % 7]) then %>
+  <% break %>
+  <% end %>
+  <% end %>
+  <% if(@h[0] == a) then%>
+  <% break %>
+  <% end %>
+  <td> </td>
+  <% end %>
+  <!-- <% case @h[0]
+  when "Monday" %>
+  <td> </td>
+  <% when "Tuesday" %>
+  <td> </td><td> </td>
+  <% when "Wednesday" %>
+  <td> </td><td> </td><td> </td>
+  <% when "Thursday" %>
+  <td> </td><td> </td><td> </td><td> </td>
+  <% when "Friday" %>
+  <td> </td><td> </td><td> </td><td> </td><td> </td>
+  <% when "Saturday" %>
+  <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td>
+  <% else %>
+  <% end %> -->
+<% @h.each_with_index do |a , i| %>
+<% if a == "Public" then %>
+<td class="public"><%= i + 1 %></td>
+<% elsif a == "Transfer" then %>
+<td class="transfer"><%= i + 1 %></td>
+<% elsif a == "Saturday" then%>
+<td class="saturday"><%= i + 1 %></td>
+</tr>
+<tr>
+<% elsif a == "Sunday" then%>
+<td class="sunday"><%= i + 1 %></td>  
+<% else %>
+<td><%= i + 1 %></td>
+<% end %>
+<% end %>
+</tr>
+</table>
+</body>
+</html>

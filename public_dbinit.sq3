@@ -1,0 +1,16 @@
+create table publics (
+id char(10) primary key,
+name varchar(50),
+kata char(10),
+month INTEGER,
+date INTEGER,
+week INTEGER,
+begin char(20),
+end char(20)
+);
+
+insert into publics values ('1001', 'ganjitsu', 'date',1,1,0,'1946-05-03','2999-12-31');
+insert into publics values ('1002', 'kenkoku', 'date',2,11,0,'1945-05-03','2999-12-31');
+insert into publics values ('1003', 'showa', 'date',4,29,0,'1945-05-03','2999-12-31');
+insert into publics values ('1004', 'kenpo', 'date',5,3,0,'1945-05-03','2999-12-31');
+insert into publics values ('1005', 'midori', 'date',5,4,0,'1945-05-03','2999-12-31');
